@@ -1,0 +1,3 @@
+**/*.out
+**/*.dSM*
+.ccls-cache
