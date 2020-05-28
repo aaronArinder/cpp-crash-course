@@ -38,18 +38,29 @@ int main() {
     trooper2.insert_after(&trooper3);
 
     /*
-     * Order matters, for some reaosn: if you have this,
+     * order matters: if you have this,
      *
      *  trooper2.insert_before(&trooper1);
      *  trooper3.insert_before(&trooper2);
      *
-     * then the correct ordering won't be printed.
+     * then the correct ordering won't be printed
      *
+     * why? because when we take trooper3's `previous` and use it
+     * for trooper2's, trooper3->previous points to null; so, we then
+     * point trooper2's `previous` to null, despite having already set
+     * it to trooper1 (i.e., it overwrites trooper1 to point to null)
      *
-     * wtf?
+     * t2 insert_before t1
+     * t1->previous = null*
+     * t2->previous = t1
+     *
+     * t3 insert_before t2
+     * t2->previous = null*
+     * t3->previous = t2
      * */
-    trooper3.insert_before(&trooper2);
+
     trooper2.insert_before(&trooper1);
+    trooper3.insert_before(&trooper2);
 
     printf("Linked list moving 'foward': \n\n");
     for (Element *cursor = &trooper1; cursor; cursor = cursor->next){
@@ -61,7 +72,6 @@ int main() {
     }
 
     printf("\n\nAnd now the other way:\n\n");
-
     for (Element *cursor = &trooper3; cursor; cursor = cursor->previous){
         printf("stormtrooper %c%c-%d\n",
             cursor->prefix[0],
