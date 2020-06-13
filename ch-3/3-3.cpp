@@ -6,13 +6,22 @@ struct Element {
 
     void insert_after(Element* new_element) {
         new_element->next = next;
-        next = new_element;
-    }
+        next = new_element; }
 
     void insert_before(Element* new_element) {
         new_element->previous = previous;
         previous = new_element;
     }
+
+    /*
+     * no trooper1
+     * trooper2.insert_before(&trooper1);
+     * trooper3.insert_before(&trooper2);
+     *
+     * trooper1 printed
+     * trooper3.insert_before(&trooper2);
+     * trooper2.insert_before(&trooper1);
+     * */
 
     char prefix[2];
     short operating_number;
